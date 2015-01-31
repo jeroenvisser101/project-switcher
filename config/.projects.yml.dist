@@ -1,0 +1,13 @@
+# Project switcher configuration
+#
+# In this file, you'll define your projects, their key, their location and
+# their name. You can also configure another alias for the switcher. The
+# Letter 'p' is used by default.
+#
+config:
+  alias: 'p' # This is the alias used for the switcher.
+
+projects:
+  home:
+    name: 'Home directory'
+    path: '~/'
