@@ -4,8 +4,11 @@ if git --version &>/dev/null; then
   # Git is installed, clone repo
   git clone https://github.com/jeroenvisser101/project-switcher.git ~/.project-switcher
 
-  # Install configuration files
-  cp ~/.project-switcher/config/.projects.yml.dist ~/.projects.yml
+  # If no config file exists, we copy the default one
+  if [ ! -f ~/.projects.yml ]; then
+    # Install configuration files
+    cp ~/.project-switcher/config/.projects.yml.dist ~/.projects.yml
+  fi
 
   echo 'Add the following to your .bashrc or .zshrc:'
   echo '  export PATH="$HOME/.project-switcher/bin:$PATH"'
