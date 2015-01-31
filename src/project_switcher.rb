@@ -13,6 +13,11 @@ class ProjectSwitcher
         exit
       end
 
+      opts.on('--self-update', 'Update project-switcher to it\'s latest version') do
+        echo `cd ~/.project-switcher && git pull`
+        exit
+      end
+
       opts.on('-h', '--help', 'Prints this help.') do
         echo opts
         echo ''
@@ -24,8 +29,20 @@ class ProjectSwitcher
 
     parser.parse!
 
-    # Switch to a folder
-    switch_to! ARGV.first
+    project = ARGV.first
+
+    # Check if a project has been set
+    if project.nil?
+      echo parser.help
+      echo ''
+      echo 'Available projects:'
+      print_projects!
+      exit
+    else
+      # Switch to a folder
+      switch_to! project
+    end
+
   end
 
   # Switches directories to specified project
@@ -68,7 +85,7 @@ class ProjectSwitcher
   end
 
   def echo(str)
-    puts "echo '#{str}'"
+    puts "echo '#{ str.gsub(/'/, "'\"'\"'") }'"
   end
 
   def exec(arg)
