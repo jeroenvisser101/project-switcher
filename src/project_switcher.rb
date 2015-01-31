@@ -15,6 +15,7 @@ class ProjectSwitcher
 
       opts.on('--install', 'Installs some files into the shell') do
         install!
+        exit
       end
 
       opts.on('-h', '--help', 'Prints this help.') do
