@@ -12,7 +12,7 @@ if git --version &>/dev/null; then
 
   echo 'Add the following to your .bashrc or .zshrc:'
   echo '  export PATH="$HOME/.project-switcher/bin:$PATH"'
-  echo '  eval "$(project-switcher --init)"'
+  echo '  eval "$(project-switcher --inject)"'
   echo ''
   echo 'Configuration is located in ~/.projects.yml'
   echo ''
