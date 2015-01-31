@@ -13,11 +13,6 @@ class ProjectSwitcher
         exit
       end
 
-      opts.on('--install', 'Installs some files into the shell') do
-        install!
-        exit
-      end
-
       opts.on('-h', '--help', 'Prints this help.') do
         echo opts
         echo ''
@@ -50,13 +45,6 @@ class ProjectSwitcher
   # Initiates the switcher in the current shell
   def inject!
     exec "#{ config['alias'] } () { eval \"$(project-switcher $@)\" }"
-  end
-
-  # Copies some files
-  def install!
-    `cp #{ APP_ROOT }/config/.projects.yml.dist #{ File.expand_path('~/.projects.yml') }`
-    echo 'You can now use project-switcher by typing "p home".'
-    echo ''
   end
 
   def settings
