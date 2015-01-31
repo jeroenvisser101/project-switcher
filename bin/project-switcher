@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
 APP_ROOT = File.expand_path(File.dirname(__FILE__) << '/../')
+
 # Import all src files
 Dir.glob("#{ APP_ROOT }/src/*.rb").each { |f| require f }
-
 
 # Run the application
 project_switcher = ProjectSwitcher.new
