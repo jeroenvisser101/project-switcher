@@ -5,7 +5,7 @@ class ProjectSwitcher
 
   # Runs the application
   def run
-    parser = OptionParser.new do |opts|
+    @parser = OptionParser.new do |opts|
       opts.banner = "Usage: #{ config['alias'] } [project alias]"
 
       opts.on('-i', '--inject', 'Injects the script into the shell.') do
@@ -19,25 +19,19 @@ class ProjectSwitcher
       end
 
       opts.on('-h', '--help', 'Prints this help.') do
-        echo opts
-        echo ''
-        echo 'Available projects:'
-        print_projects!
-        exit
+        help!
       end
+
+      opts.on
     end
 
-    parser.parse!
+    @parser.parse!
 
     project = ARGV.first
 
     # Check if a project has been set
     if project.nil?
-      echo parser.help
-      echo ''
-      echo 'Available projects:'
-      print_projects!
-      exit
+      help!
     else
       # Switch to a folder
       switch_to! project
@@ -62,6 +56,14 @@ class ProjectSwitcher
   # Initiates the switcher in the current shell
   def inject!
     exec "#{ config['alias'] } () { eval \"$(project-switcher $@)\" }"
+  end
+
+  def help!
+    echo @parser.help
+    echo ''
+    echo 'Available projects:'
+    print_projects!
+    exit
   end
 
   def settings
