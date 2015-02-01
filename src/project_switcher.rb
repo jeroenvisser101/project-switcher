@@ -5,7 +5,7 @@ class ProjectSwitcher
   # Runs the application
   def run
     @parser = OptionParser.new do |opts|
-      opts.banner = "Usage: #{ config['alias'] } [project alias]"
+      opts.banner = "Project Switcher\nUsage: #{ config['alias'] } [project alias]"
 
       opts.on('-i', '--inject', 'Injects the script into the shell.') do
         inject!
