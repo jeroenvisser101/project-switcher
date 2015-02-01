@@ -19,6 +19,6 @@ if git --version &>/dev/null; then
   echo 'If you come across any problems, please create an issue on GitHub.'
   echo 'https://github.com/jeroenvisser101/project-switcher/issues'
 else
-  echo "Git must be installed in order to install project-switcher"
+  echo 'Git must be installed in order to install project-switcher'
   exit
 fi

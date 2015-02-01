@@ -2,7 +2,6 @@ require 'yaml'
 require 'optparse'
 
 class ProjectSwitcher
-
   # Runs the application
   def run
     @parser = OptionParser.new do |opts|
@@ -15,7 +14,19 @@ class ProjectSwitcher
 
       opts.on('--self-update', 'Update project-switcher to it\'s latest version') do
         echo `cd ~/.project-switcher && git pull`
+        echo ''
+        echo 'Project is up-to-date.'
         exit
+      end
+
+      opts.on('-l', '--list', 'Lists all available projects') do
+        print_projects!
+        exit
+      end
+
+      opts.on('-r', '--reload', 'Reloads the configuration file') do
+        settings true
+        echo 'Project config reloaded'
       end
 
       opts.on('-h', '--help', 'Prints this help.') do
@@ -66,10 +77,12 @@ class ProjectSwitcher
     exit
   end
 
-  def settings
-    @settings ||= YAML.load_file(
-      File.expand_path('~/.projects.yml')
-    )
+  def settings(force = false)
+    if force
+      @settings = YAML.load_file File.expand_path('~/.projects.yml')
+    else
+      @settings ||= YAML.load_file File.expand_path('~/.projects.yml')
+    end
   end
 
   def projects
