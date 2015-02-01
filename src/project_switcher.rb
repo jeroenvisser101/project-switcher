@@ -29,6 +29,15 @@ class ProjectSwitcher
         echo 'Project config reloaded'
       end
 
+      opts.on('--uninstall', 'Removes project-switcher from your system') do
+        `rm -Rf ~/.project-switcher`
+        echo 'You\'ll have to remove the following lines from your .bashrc/.zshrc:'
+        echo '  export PATH="$HOME/.project-switcher/bin:$PATH"'
+        echo '  eval "$(project-switcher --inject)"'
+        echo ''
+        echo 'And remove ~/.projects.yml yourself.'
+      end
+
       opts.on('-h', '--help', 'Prints this help.') do
         help!
       end

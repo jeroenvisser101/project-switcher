@@ -39,4 +39,9 @@ projects:
 ```
 
 ## Uninstall
-Working on an uninstall command.
+If you wish to uninstall project-switcher from your system, run the command
+below.
+``` bash
+p --uninstall
+```
+
