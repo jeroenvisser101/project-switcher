@@ -24,6 +24,10 @@ class ProjectSwitcher
         exit
       end
 
+      opts.on('-e', '--edit', 'Opens the configuration file in the default editor') do
+        exec '"${EDITOR:-vi}" ~/.projects.yml'
+      end
+
       opts.on('-r', '--reload', 'Reloads the configuration file') do
         settings true
         echo 'Project config reloaded'
@@ -63,13 +67,25 @@ class ProjectSwitcher
   def switch_to!(project_key)
     # Check if the project is defined
     if projects.keys.include? project_key
+      run_hook :before
+
       project = projects[project_key]
       exec "cd #{ File.expand_path(project['path']) }"
       echo "Now working in #{ project['name'] }"
+
+      run_hook :after
       exit
     else
       echo "Project \"#{ project_key }\" not found"
       exit
+    end
+  end
+
+  def run_hook(type)
+    if type == :before
+      exec config['before_switch'] unless config['before_switch'].nil?
+    elsif type == :after
+      exec config['after_switch'] unless config['after_switch'].nil?
     end
   end
 

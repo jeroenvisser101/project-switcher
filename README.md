@@ -31,6 +31,8 @@ alias you want to use.
 # ~/.projects.yml
 config:
   alias: 'p' # This is the alias used for the switcher.
+  before_switch: 'clear' # (optional) hooks with commands to be ran.
+  after_switch: 'pwd' # (optional) hooks with commands to be ran.
 
 projects:
   home:
