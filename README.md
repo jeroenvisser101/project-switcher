@@ -38,6 +38,8 @@ projects:
   home:
     name: 'Home directory'
     path: '~/'
+    before_switch: 'clear' # (optional) Same as before_switch in config, but configurable per project. Runs after global before_switch.
+    after_switch: 'pwd' # (optional) Same as after_switch in config, but configurable per project. Runs after global after_switch.
 ```
 
 ## Uninstall
