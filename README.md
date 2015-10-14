@@ -6,7 +6,7 @@ without typing their full path.
 Just run the following command to install the application
 
 ``` bash
-\curl -sSL http://goo.gl/uHTb1g | bash -s
+\curl -sSL https://git.io/vCKDx | bash -s
 ```
 
 ## Usage
