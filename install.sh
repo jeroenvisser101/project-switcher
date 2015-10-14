@@ -14,7 +14,7 @@ if git --version &>/dev/null; then
   echo '  export PATH="$HOME/.project-switcher/bin:$PATH"'
   echo '  eval "$(project-switcher --inject)"'
   echo ''
-  echo 'Configuration is located in ~/.projects.yml'
+  echo 'Configuration is located in ~/.projects.yml, which you can easily edit with p --edit (or p -e)'
   echo ''
   echo 'If you come across any problems, please create an issue on GitHub.'
   echo 'https://github.com/jeroenvisser101/project-switcher/issues'
