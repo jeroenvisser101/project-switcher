@@ -98,13 +98,12 @@ class ProjectSwitcher
   def switch_to!(project_key)
     # Check if the project is defined
     if projects.keys.include? project_key
-      run_hook :before
+      run_hook :before, (project = projects[project_key])
 
-      project = projects[project_key]
       exec "cd #{ File.expand_path(project['path']) }"
       echo "Now working in #{ project['name'] }"
 
-      run_hook :after
+      run_hook :after, project
       exit
     else
       echo "Project \"#{ project_key }\" not found"
@@ -113,11 +112,13 @@ class ProjectSwitcher
   end
 
   # Runs hooks specified in ~/.projects.yml
-  def run_hook(type)
+  def run_hook(type, project)
     if type == :before
       exec config['before_switch'] unless config['before_switch'].nil?
+      exec project['before_switch'] unless project['before_switch'].nil?
     elsif type == :after
       exec config['after_switch'] unless config['after_switch'].nil?
+      exec project['after_switch'] unless project['after_switch'].nil?
     end
   end
 
