@@ -23,7 +23,7 @@ class ProjectSwitcher
       end
 
       opts.on('-l', '--list', 'Lists all available projects') do
-        print_projects!
+        print_projects!(projects)
         exit
       end
 
@@ -107,21 +107,17 @@ class ProjectSwitcher
       exit
     else
       echo "Project \"#{ project_key }\" not found"
-      print_possible_matches(project_key)
+      print_possible_matches!(project_key)
       exit
     end
   end
 
-  def print_possible_matches(project_key)
-    possible_matches = Array.new
-    projects.each do |key, value|
-        if key.include?(project_key.downcase)
-           possible_matches << key
-        end 
-    end
-    if possible_matches.length > 0
-      echo "Did you mean:"
-      possible_matches.each { |p| echo p }
+  # Prints projects
+  def print_possible_matches!(project_key)
+    possible_matches = projects.select { |key, _| key if key.include?(project_key.downcase) }
+    if possible_matches.any?
+      echo "\nDid you mean:"
+      print_projects!(possible_matches)
     end
   end
 
@@ -146,7 +142,7 @@ class ProjectSwitcher
     echo @parser.help
     echo ''
     echo 'Available projects:'
-    print_projects!
+    print_projects!(projects)
     exit
   end
 
@@ -170,7 +166,7 @@ class ProjectSwitcher
   end
 
   # Prints all available projects
-  def print_projects!
+  def print_projects!(projects)
     projects.each do |key, project|
       echo "  #{ key }: #{ project['name'] } (#{ project['path'] })"
     end
