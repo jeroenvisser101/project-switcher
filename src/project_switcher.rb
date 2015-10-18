@@ -112,7 +112,7 @@ class ProjectSwitcher
     end
   end
 
-  # Prints projects
+  # Prints projects that partly match the given project_key
   def print_possible_matches!(project_key)
     possible_matches = projects.select { |key, _| key if key.include?(project_key.downcase) }
     if possible_matches.any?
