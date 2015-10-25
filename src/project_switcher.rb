@@ -1,5 +1,6 @@
 require 'yaml'
 require 'optparse'
+require_relative 'fuzzysearch.rb'
 
 class ProjectSwitcher
   # Runs the application
@@ -106,22 +107,12 @@ class ProjectSwitcher
       run_hook :after, project
       exit
     else
-      echo "Project \"#{ project_key }\" not found"
-      print_possible_matches(project_key)
+      begin
+        fuzzy_hash_search(projects, project_key, 'project')
+      rescue HashNotFoundException => e
+        echo e.message 
+      end
       exit
-    end
-  end
-
-  def print_possible_matches(project_key)
-    possible_matches = Array.new
-    projects.each do |key, value|
-        if key.include?(project_key.downcase)
-           possible_matches << key
-        end 
-    end
-    if possible_matches.length > 0
-      echo "Did you mean:"
-      possible_matches.each { |p| echo p }
     end
   end
 
